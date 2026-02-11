@@ -268,7 +268,7 @@ export default function App() {
 
       {/* Header */}
       <div style={{ background: "#fff", borderBottom: "1.5px solid #e2e8f0", padding: isMobile ? "1rem 1.1rem" : "1.1rem 1.8rem", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
-        <div style={{ maxWidth: "1180px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
             <img src="https://storage.googleapis.com/msgsndr/bEBJSFPZH9POL2qVaxN0/media/698b97feca717c1fa4c8e2c7.png" alt="Logo" style={{ height: "34px", width: "auto", objectFit: "contain", flexShrink: 0 }} />
             <div>
