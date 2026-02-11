@@ -6,6 +6,8 @@ const CAD_TO_USD = 1 / USD_TO_CAD;
 const fmt = (n) => Math.round(n).toLocaleString("en-US");
 const fmtCurrency = (n, currency) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
+const fmtCurrencyPrecise = (n, currency) =>
+  new Intl.NumberFormat("en-US", { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 
 // Monetary keys that need converting when switching currency
 const MONEY_KEYS = ["revenueTarget", "currentRevenue", "avgDealSize"];
@@ -491,7 +493,7 @@ export default function App() {
             <div style={{ background: "#fff", border: "1.5px solid #e2e8f0", borderRadius: "12px", padding: "1.1rem 1.2rem", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}>
               <div style={{ fontSize: "0.63rem", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.3rem", fontWeight: 600 }}>Inbox Cost / mo</div>
               <div style={{ fontSize: "2rem", fontWeight: 800, color: "#1e3a5f", fontFamily: "'DM Mono', monospace", lineHeight: 1.1 }}>{fc(infra.inboxCostMonthly)}</div>
-              <div style={{ fontSize: "0.68rem", color: "#94a3b8", marginTop: "0.25rem" }}>{fc(PROVIDERS[provider].inboxCostUSD * (currency === "CAD" ? USD_TO_CAD : 1))}/inbox · recurring</div>
+              <div style={{ fontSize: "0.68rem", color: "#94a3b8", marginTop: "0.25rem" }}>{fmtCurrencyPrecise(PROVIDERS[provider].inboxCostUSD * (currency === "CAD" ? USD_TO_CAD : 1), currency)}/inbox · recurring</div>
             </div>
             <div style={{ background: "linear-gradient(135deg,#1d4ed8,#2563eb)", border: "1.5px solid #2563eb", borderRadius: "12px", padding: "1.1rem 1.2rem", boxShadow: "0 2px 12px rgba(37,99,235,0.2)" }}>
               <div style={{ fontSize: "0.63rem", color: "#bfdbfe", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.3rem", fontWeight: 600 }}>Domain Cost / yr</div>
@@ -576,7 +578,7 @@ export default function App() {
                 ["Emails / inbox / day", `${infra.emailsPerInbox}`],
                 ["Inboxes required", fmt(infra.inboxes)],
                 ["Domains required", `${fmt(infra.domains)} × ${fc(DOMAIN_COST_USD * (currency === "CAD" ? USD_TO_CAD : 1))}/yr = ${fc(infra.domainCostAnnual)}/yr upfront`],
-                ["Inbox cost", `${fmt(infra.inboxes)} × ${fc(PROVIDERS[provider].inboxCostUSD * (currency === "CAD" ? USD_TO_CAD : 1))}/mo = ${fc(infra.inboxCostMonthly)}/mo recurring`],
+                ["Inbox cost", `${fmt(infra.inboxes)} × ${fmtCurrencyPrecise(PROVIDERS[provider].inboxCostUSD * (currency === "CAD" ? USD_TO_CAD : 1), currency)}/mo = ${fc(infra.inboxCostMonthly)}/mo recurring`],
               ].map(([label, val]) => (
                 <div key={label} style={{ display: "flex", flexDirection: "column", padding: "0.5rem 0", borderBottom: "1px solid #f1f5f9" }}>
                   <span style={{ fontSize: "0.68rem", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.07em", fontWeight: 600, marginBottom: "0.2rem" }}>{label}</span>
