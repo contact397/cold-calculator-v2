@@ -314,7 +314,7 @@ Return exactly ${infra.domains} domain${infra.domains === 1 ? "" : "s"}.`
         </div>
       </div>
 
-      <div style={{ maxWidth: "1180px", margin: "0 auto", padding: isMobile ? "1.1rem" : "1.8rem" }}>
+      <div style={{ maxWidth: "100%", margin: "0 auto", padding: isMobile ? "1.1rem" : "1.8rem" }}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "0" : "1.8rem" }}>
 
           {/* ── LEFT: Inputs ── */}
