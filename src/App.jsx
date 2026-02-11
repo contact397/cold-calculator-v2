@@ -217,6 +217,7 @@ export default function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
        body: JSON.stringify({ primaryDomain: input, numDomains: infra.domains })
+});
       const data = await res.json();
       const text = data || "";
       const cleaned = text.replace(/```json|```/g, "").trim();
