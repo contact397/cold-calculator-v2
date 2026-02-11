@@ -19,10 +19,11 @@ export default async (req) => {
   });
 
   const data = await response.json();
-  const text = data.content?.[0]?.text || JSON.stringify(data);
+console.log("Anthropic response:", JSON.stringify(data));
+const text = data.content?.[0]?.text || JSON.stringify(data);
 return new Response(text, {
-    headers: { "Content-Type": "application/json" }
-  });
+  headers: { "Content-Type": "application/json" }
+});
 };
 
 export const config = { path: "/api/suggest-domains" };
