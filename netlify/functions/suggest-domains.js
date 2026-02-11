@@ -19,7 +19,8 @@ export default async (req) => {
   });
 
   const data = await response.json();
-  return new Response(data.content[0].text, {
+  const text = data.content?.[0]?.text || JSON.stringify(data);
+return new Response(text, {
     headers: { "Content-Type": "application/json" }
   });
 };
