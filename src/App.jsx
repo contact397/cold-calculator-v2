@@ -213,29 +213,12 @@ export default function App() {
     setDomainError("");
     setDomainSuggestions([]);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/suggest-domains", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-5-20250929",
-          max_tokens: 1000,
-          messages: [{
-            role: "user",
-            content: `You are a cold email deliverability expert. Given the primary business domain "${input}", suggest exactly ${infra.domains} alternative sending domains to use for cold email campaigns (to protect the main domain's reputation).
-
-Rules:
-- Use common prefixes/suffixes like: try, go, get, use, hello, meet, hi, with, by, team, mail, outreach, hq, co
-- Keep the core brand name recognisable
-- Use the same TLD as the input if it's .com, otherwise use .com
-- Return ONLY a valid JSON array of domain strings, no explanation, no markdown, no backticks
-- Example output: ["tryacme.com","getacme.com","hiacme.com"]
-
-Return exactly ${infra.domains} domain${infra.domains === 1 ? "" : "s"}.`
-          }],
-        }),
-      });
+       body: JSON.stringify({ primaryDomain: input, numDomains: infra.domains })
       const data = await res.json();
-      const text = data?.content?.[0]?.text || "";
+      const text = data || "";
       const cleaned = text.replace(/```json|```/g, "").trim();
       const parsed = JSON.parse(cleaned);
       setDomainSuggestions(Array.isArray(parsed) ? parsed : []);
